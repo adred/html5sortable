@@ -1,8 +1,6 @@
 HTML5 Sortable jQuery Plugin
 ============================
 
-Adds callback support for item transfer from one list to another.
-
 **[Demos & Documentation](http://farhadi.ir/projects/html5sortable)**
 
 Features
@@ -24,19 +22,8 @@ Use `.sortable-dragging` and `.sortable-placeholder` CSS selectors to change the
 
 Use `sortupdate` event if you want to do something when the order changes (e.g. storing the new order):
 
-
 ``` javascript
 $('.sortable').sortable().bind('sortupdate', function(e, ui) {
-    //ui.item contains the current dragged element.
-    //Triggered when the user stopped sorting and the DOM position has changed.
-});
-```
-
-Use `transferupdate` event if you want to do something when an item is transferred from one list to another:
-
-
-``` javascript
-$('.sortable').sortable().bind('transferupdate', function(e, ui) {
     //ui.item contains the current dragged element.
     //Triggered when the user stopped sorting and the DOM position has changed.
 });
