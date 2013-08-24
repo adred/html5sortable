@@ -1,12 +1,17 @@
 /*
  * HTML5 Sortable jQuery Plugin
- * http://farhadi.ir/projects/html5sortable
- * 
- * Copyright 2012, Ali Farhadi
+ *
+ * This adds callback for item transfer from one list to another.
+ *
+ * Copyright 2013, Redeye J. Adaya
  * Released under the MIT license.
+ *
+ * Original Author: Ali Farhadi
+ * Original Plugin URL: http://farhadi.ir/projects/html5sortable
+ * 
  */
 (function($) {
-var dragging, placeholders = $();
+var curList, targetList, dragging, placeholders = $();
 $.fn.sortable = function(options) {
 	var method = String(options);
 	options = $.extend({
@@ -46,9 +51,12 @@ $.fn.sortable = function(options) {
 			if (!dragging) {
 				return;
 			}
+			targetList = dragging.closest('ul')[0];
 			dragging.removeClass('sortable-dragging').show();
 			placeholders.detach();
-			if (index != dragging.index()) {
+			if (targetList != curList) {
+				dragging.parent().trigger('transferUpdate', {item: dragging});
+			} else if (index != dragging.index()) {
 				dragging.parent().trigger('sortupdate', {item: dragging});
 			}
 			dragging = null;
@@ -59,6 +67,7 @@ $.fn.sortable = function(options) {
 			if (!items.is(dragging) && options.connectWith !== $(dragging).parent().data('connectWith')) {
 				return true;
 			}
+			curList = dragging.closest('ul')[0];
 			if (e.type == 'drop') {
 				e.stopPropagation();
 				placeholders.filter(':visible').after(dragging);
