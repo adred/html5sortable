@@ -57,7 +57,7 @@ $.fn.sortable = function(options) {
 			if (targetList != curList) {
 				dragging.parent().trigger('transferUpdate', {item: dragging});
 			} else if (index != dragging.index()) {
-				dragging.parent().trigger('sortupdate', {item: dragging});
+				dragging.parent().trigger('sortUpdate', {item: dragging});
 			}
 			dragging = null;
 		}).not('a[href], img').on('selectstart.h5s', function() {
@@ -81,7 +81,7 @@ $.fn.sortable = function(options) {
 					placeholder.height(dragging.outerHeight());
 				}
 				dragging.hide();
-				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder);
+				$(this)[placeholder.index() < $(this).index() ? 'after' : 'before'](placeholder); // TODO: maybe compare by offset/position instead to avoid flickering
 				placeholders.not(placeholder).detach();
 			} else if (!placeholders.is(this) && !$(this).children(options.items).length) {
 				placeholders.detach();
